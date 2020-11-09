@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>app_four</RootNamespace>
+    <RuntimeIdentifiers>win7-x64;linux-x64</RuntimeIdentifiers>    
   </PropertyGroup>
 
 
