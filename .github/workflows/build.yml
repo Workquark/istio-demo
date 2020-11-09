@@ -19,8 +19,8 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      working-directory: /app-four
+      working-directory: ./app-four
       run: dotnet build --configuration Release --no-restore
     - name: publish
-      working-directory: /app-four
+      working-directory: ./app-four
       run: dotnet publish --no-restore --verbosity normal
