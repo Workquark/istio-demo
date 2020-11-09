@@ -23,4 +23,4 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: publish
       working-directory: ./app-four
-      run: dotnet publish --no-restore --verbosity normal
+      run: dotnet publish -c release -o release -r linux-x64 --self-contained true /p:PublishTrimmed=true --no-restore --verbosity normal
