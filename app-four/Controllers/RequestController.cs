@@ -12,13 +12,7 @@ namespace app_four.Controllers
     [Route("[controller]")]
     public class RequestController: ControllerBase
     {
-        private readonly HttpClient httpClient;
-
-        public RequestController(HttpClient httpClient)
-        {
-            this.httpClient = httpClient;
-        }
-
+        
         public IActionResult Get(){
             
             return Ok("four");

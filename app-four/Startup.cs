@@ -35,7 +35,7 @@ namespace app_four
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
             
-            app.UseHttpsRedirection()
+            app//.UseHttpsRedirection()
                 .UseRouting()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
