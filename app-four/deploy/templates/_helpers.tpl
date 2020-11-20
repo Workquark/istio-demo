@@ -5,6 +5,10 @@ Expand the name of the chart.
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
+{{- define "deploy.version" -}}
+{{- default .Values.version | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
@@ -35,6 +39,7 @@ Common labels
 */}}
 {{- define "deploy.labels" -}}
 helm.sh/chart: {{ include "deploy.chart" . }}
+app: {{ .Release.Name }}
 {{ include "deploy.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
@@ -48,6 +53,8 @@ Selector labels
 {{- define "deploy.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "deploy.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app: {{ .Release.Name }}
+version: {{ include "deploy.version" . }}
 {{- end }}
 
 {{/*

@@ -1,0 +1,41 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: app-istiocontrolplane
+spec:
+  profile: default
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          serviceAnnotations:
+            cloud.google.com/load-balancer-type: “internal”
+          service:
+            type: LoadBalancer
+            loadBalancerIP: 35.236.167.77
+      # - namespace: user-ingressgateway-ns
+      #   name: ilb-gateway
+      #   enabled: true
+      #   k8s:
+      #     resources:
+      #       requests:
+      #         cpu: 200m
+      #     serviceAnnotations:
+      #       cloud.google.com/load-balancer-type: "internal"
+      #     service:
+      #       ports:
+      #       - port: 8060
+      #         targetPort: 8060
+      #         name: tcp-citadel-grpc-tls
+      #       - port: 5353
+      #         name: tcp-dns
+    pilot:
+      k8s:
+        resources:
+          requests:
+            memory: 3072Mi
+    egressGateways:
+    - name: istio-egressgateway
+      enabled: true

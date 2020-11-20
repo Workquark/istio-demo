@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: app-four
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - app-gateway
+  http:
+  - name: app-four-v1-route
+    match:
+    - uri:
+        prefix: /app-four/
+    rewrite:
+      uri: /
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: gateway-error,connect-failure,refused-stream
+    route:
+    - destination:
+        host: app-four.services.svc.cluster.local
+        subset: v1
+        port:
+          number: 80
