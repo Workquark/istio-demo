@@ -8,7 +8,7 @@ spec:
   gateways:
   - app-gateway
   http:
-  - name: app-four-v1-route
+  - name: app-four
     match:
     - uri:
         prefix: /app-four/
@@ -19,8 +19,22 @@ spec:
       perTryTimeout: 2s
       retryOn: gateway-error,connect-failure,refused-stream
     route:
-    - destination:
+    - weight: 80
+      destination:
         host: app-four.services.svc.cluster.local
         subset: v1
         port:
+          number: 80      
+    - weight: 10
+      destination:
+        host: app-four-v2.services.svc.cluster.local
+        subset: v2
+        port:
           number: 80
+    - weight: 10
+      destination:
+        host: app-four-v3.services.svc.cluster.local
+        subset: v3
+        port:
+          number: 80
+      
